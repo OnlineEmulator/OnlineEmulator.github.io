@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Emulator</title>
+        <link rel="icon" href="websitelogo.png" type="image/x-icon">
+        <meta name="Description" content="This website lets you emulate Tiny core linux in your Browser without Cloud servers using v86 and WebAssembly">
+        <meta name="keywords" content="Emulation">
+        <meta name="author" content="Basically_Dev">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="charset" content="UTF-8">
+        <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <div id="notifications"></div>
+        <div>
+            <h1 id="title">Emulator</h1>
+        </div>
+        <p id="desc">This website lets you emulate 32 bit OSES or Old consoles in your <span id="popular"><b>Browser</b></span> without <span id="popular"><b>Cloud servers</b></span></p>
+        <h2 id="SettingsLabel">Settings</h2>
+        <div id="settings"> 
+            <form>
+                <div id="settingsliders">
+                    <h2>PC ONLY</h2>
+                    <div class="ram-row">
+                        <label for="Ram" id="RamLabel">Ram (1.00 GB):</label>
+                        <input id="Ram" type="range" max="2048" min="512" value="1024">
+                    </div>
+                    <br>
+                    <div class="vram-row">
+                        <label for="VRam" id="VRamLabel">VRam (64 MB):</label>
+                        <input id="VRam" type="range" max="128" min="16" value="64">
+                    </div>
+                </div>
+
+                <h2>CONSOLE ONLY</h2>
+
+                <div><input type="checkbox" id="Threads"> Threads</div>
+                <div><input type="checkbox" id="leftclick"> Left click triggers A/X</div>
+                <div><input type="text" id="gameid"> Game ID</div>
+
+                <h2>GLOBAL SETTINGS</h2>
+
+                <div style="gap: 10px">
+                    <select id="Emulator">
+                        <option value="v86" selected disabled>Default (PC)</option>
+                        <option value="v86">PC</option>
+                        <option value="nes">Nintendo entertainment system</option>
+                        <option value="gba">Gameboy Advance</option>
+                        <option value="psp">Playstation Portable</option>
+                    </select>
+
+                    System to emulate
+                </div>
+            </form>
+        </div>
+
+        <div id="controlsiguess">
+            <div style="gap: 10px;" id="centerthingy">
+                <select id="OperatingSystemSelector">
+                        <option value="http://www.tinycorelinux.net/downloads.html" selected disabled>Default (Tiny Core)</option>
+                        <option value="http://www.tinycorelinux.net/downloads.html">Tiny core</option>
+                        <option value="https://alpinelinux.org/downloads/">Alpine linux</option>
+                        <option value="https://copy.sh/v86/?profile=dsl">Damn Small Linux</option>
+                        <option value="https://flinux-distro.sourceforge.io/">FLinux</option>
+                        <option value="https://github.com/vanilla-dpup/unstable/releases">Vanilla DPup</option>
+                        <option value="https://www.slax.org/#getslax">Slax Debian</option>
+                        <option value="https://forum.puppylinux.com/puppy-linux-collection">Puppy Linux</option>
+                        <option value="https://voidlinux.org/download/">Void Linux</option>
+                        <option value="https://kolibrios.org/en/download">Kolibri OS (98 MB)</option>
+                        <option disabled>Geometry Dash</option>
+                        <option value="https://kandowontu.itch.io/famidash">Famidash</option>
+                        <option value="https://github.com/AleFunky/geometry_dash_advance/releases/tag/v0.9_beta">Geometry Dash Gameboy Advance</option>
+                        <option value="https://yersongames.itch.io/gdpsp">Geometry Dash PSP</option>
+                        <option value="https://geometrylitepc.net/">Geometry Dash Lite</option>
+                        <option value="https://scratch.mit.edu/projects/142106986/">Geometry Dash Scratch</option>
+                </select>
+                OSES/Games to download
+            </div>
+
+            <div id="divbutton">
+                <button id="button" onclick="WhichToStart()">Startup VM</button>
+                <button onclick="downloadFromUrl()" >Go to website</button>
+            </div>
+            <div id="controls">
+                <button onclick="EnterFullscreen()" id="fullscreenbutton">Enter Fullscreen</button> 
+            </div>
+        </div>
+        <p style="display: none;" id="statustext">Download not started.</p>
+        <hr>
+        <div id="vm">
+            <div id="vmdiv"></div>
+            <canvas id="vmcanvas"></canvas>
+        </div>
+        <div id="gamediv" style="width: 100%; height: 600px;">
+            <div id="game"></div>
+            <canvas id="gamecanvas"></canvas>
+        </div>
+        <hr style="display: none;" id="hehe">
+            <div style="display: none;" class="dangerzone">
+                    <h1 id="danger">DANGER ZONE</h1>
+                    <div id="dangerbuttondiv">
+                        <button id="dangerbutton"onclick="ClearCookies()">Clear Information</button>
+                    </div>
+            </div>
+        <hr id="hehe">
+        <p>Links:</p> 
+        <a id="link" href="https://github.com/copy/v86" target="_self">v86 Github repository</a>
+        <br>
+        <a id="link" href="https://emulatorjs.org/" target="_self">EmulatorJS website</a>
+        <br>
+        <a id="email" href="mailto:basically_dev@outlook.com" title="basically_dev@outlook.com">Email me</a>
+
+        <script src="coi-serviceworker.js"></script>
+        <script src="build/libv86.js"></script>
+        <script src="index.js"></script>
+    </body>
+</html>
