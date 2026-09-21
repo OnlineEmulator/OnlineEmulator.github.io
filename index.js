@@ -125,6 +125,7 @@ async function ClearCookies() {
 }
 
 async function StartLinux(ISO) {
+    return
     document.getElementById("gamediv").style.display = "none";
     document.getElementById("vm").style.display = "flex";
     document.getElementById("button").remove()
@@ -294,6 +295,7 @@ function downloadFromUrl() {
 }
 
 async function StartConsole(id, threads, consolename, file, buttonmapping) {
+    return
     document.getElementById("vm").style.display = "none";
     document.getElementById("divbutton").style.display = "none";
     document.getElementById("gamediv").style.display = "";
@@ -360,6 +362,7 @@ async function uploadFile() {
 }
 
 async function WhichToStart(){
+    return
     const file = await uploadFile()
     const state = document.getElementById("Emulator").value
     const threads = document.getElementById("Threads").value
