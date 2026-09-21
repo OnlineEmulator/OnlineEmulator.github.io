@@ -426,3 +426,9 @@ async function WhichToStart(){
         return
     }
 }
+
+function ShowErrorIFrame() {
+    document.getElementById("vm").style.display = "none"
+    document.getElementById("iframe").style.display = "flex"
+    document.getElementById("iframe").src = "https://onlineemulator.github.io/Errors/402/"
+}
