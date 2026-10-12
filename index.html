@@ -10,15 +10,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="charset" content="UTF-8">
         <link rel="stylesheet" href="index.css">
-        <meta name="google-adsense-account" content="ca-pub-4094430191232900">
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4094430191232900" crossorigin="anonymous"></script>
     </head>
     <body>
         <div id="notifications"></div>
         <div>
             <h1 id="title">Emulator</h1>
         </div>
-        <p id="desc">This website lets you emulate 32 bit OSES or Old consoles in your <span id="popular"><b>Browser</b></span> without <span id="popular"><b>Cloud servers</b></span></p>
+        <p id="desc">This website lets you emulate 32 bit OSes or old consoles in your <span id="popular"><b>browser</b></span> without <span id="popular"><b>cloud servers</b></span></p>
         <h2 id="SettingsLabel">Settings</h2>
         <div id="settings"> 
             <form>
@@ -58,31 +56,8 @@
         </div>
 
         <div id="controlsiguess">
-            <div style="gap: 10px;" id="centerthingy">
-                <select id="OperatingSystemSelector">
-                        <option value="http://www.tinycorelinux.net/downloads.html" selected disabled>Default (Tiny Core)</option>
-                        <option value="http://www.tinycorelinux.net/downloads.html">Tiny core</option>
-                        <option value="https://alpinelinux.org/downloads/">Alpine linux</option>
-                        <option value="https://copy.sh/v86/?profile=dsl">Damn Small Linux</option>
-                        <option value="https://flinux-distro.sourceforge.io/">FLinux</option>
-                        <option value="https://github.com/vanilla-dpup/unstable/releases">Vanilla DPup</option>
-                        <option value="https://www.slax.org/#getslax">Slax Debian</option>
-                        <option value="https://forum.puppylinux.com/puppy-linux-collection">Puppy Linux</option>
-                        <option value="https://voidlinux.org/download/">Void Linux</option>
-                        <option value="https://kolibrios.org/en/download">Kolibri OS (98 MB)</option>
-                        <option disabled>Geometry Dash</option>
-                        <option value="https://kandowontu.itch.io/famidash">Famidash</option>
-                        <option value="https://github.com/AleFunky/geometry_dash_advance/releases/tag/v0.9_beta">Geometry Dash Gameboy Advance</option>
-                        <option value="https://yersongames.itch.io/gdpsp">Geometry Dash PSP</option>
-                        <option value="https://geometrylitepc.net/">Geometry Dash Lite</option>
-                        <option value="https://scratch.mit.edu/projects/142106986/">Geometry Dash Scratch</option>
-                </select>
-                OSES/Games to download
-            </div>
-
             <div id="divbutton">
-                <button id="button" onclick="ShowErrorIFrame()">Startup VM</button>
-                <button onclick="downloadFromUrl()" >Go to website</button>
+                <button id="button" onclick="WhichToStart()">Startup VM</button>
             </div>
             <div id="controls">
                 <button onclick="EnterFullscreen()" id="fullscreenbutton">Enter Fullscreen</button> 
@@ -98,12 +73,6 @@
             <div id="game"></div>
             <canvas id="gamecanvas"></canvas>
         </div>
-        <iframe
-            src=""
-            credentialless
-            style="width: 700px;height: 500px;border: 3px solid white;margin: auto;overflow: hidden;display: flex;justify-content: center;align-items: center; display: none;"
-            id="iframe"
-        ></iframe>
         <hr style="display: none;" id="hehe">
             <div style="display: none;" class="dangerzone">
                     <h1 id="danger">DANGER ZONE</h1>
