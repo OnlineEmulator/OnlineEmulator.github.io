@@ -2,14 +2,9 @@ let ram
 let vram
 let emulator
 let ispsp = false
-let clickenabled = false
 
 function EnterFullscreen(){
-    if (!document.querySelector("#OperatingSystemSelector").value.startsWith("gdlite")) {
-        document.getElementById("vm").requestFullscreen()
-    } else {
-        document.getElementById("iframe").requestFullscreen()
-    }
+    document.getElementById("vm").requestFullscreen()
 }
 
 document.addEventListener("fullscreenchange", function(){if (document.fullscreenElement) {emulator.screen_set_scale(1.5, 1.5)} else {emulator.screen_set_scale(1, 1)}})
@@ -20,58 +15,57 @@ document.getElementById("gamediv").style.display = "none";
 let mouseA = false;
 
 document.addEventListener("mousedown", function (e) { 
-    if (!clickenabled) {return}
+    if (document.getElementById("leftclick").checked) {
+        if (!window.EJS_emulator) {
+            console.log("EJS_emulator does not exist");
+            return;
+        }
 
-    if (!window.EJS_emulator) {
-        console.log("EJS_emulator does not exist");
-        return;
-    }
+        const id = e.target.id;
+        const isCanvas = e.target.classList.contains("ejs_canvas");
 
-    const id = e.target.id;
-    const isCanvas = e.target.classList.contains("ejs_canvas");
+        if (
+            id !== "game" &&
+            id !== "gamediv" &&
+            id !== "gamecanvas" &&
+            !isCanvas
+        ) {
+            console.log("Invalid target");
+            return;
+        }
 
-    if (
-        id !== "game" &&
-        id !== "gamediv" &&
-        id !== "gamecanvas" &&
-        !isCanvas
-    ) {
-        console.log("Invalid target");
-        return;
-    }
+        mouseA = true;
+        console.log("Valid target - pressing A");
 
-    mouseA = true;
-    console.log("Valid target - pressing A");
-
-    if (ispsp) {
-        EJS_emulator.gameManager.simulateInput(0, 0, 1);
-    } else {
-        EJS_emulator.gameManager.simulateInput(0, 8, 1);
+        if (ispsp) {
+            EJS_emulator.gameManager.simulateInput(0, 0, 1);
+        } else {
+            EJS_emulator.gameManager.simulateInput(0, 8, 1);
+        }
     }
 });
 
 document.addEventListener("mouseup", function (e) {
-    if (!clickenabled) {return}
+    if (document.getElementById("leftclick").checked) {
+        if (!window.EJS_emulator) {
+            console.log("EJS_emulator does not exist");
+            return;
+        }
 
-    if (!window.EJS_emulator) {
-        console.log("EJS_emulator does not exist");
-        return;
+        if (!mouseA) {
+            console.log("No active mouse A press");
+            return;
+        }
+
+        mouseA = false;
+        console.log("Releasing A");
+
+        if (ispsp) {
+            EJS_emulator.gameManager.simulateInput(0, 0, 0);
+        } else {
+            EJS_emulator.gameManager.simulateInput(0, 8, 0);
+        }
     }
-
-    if (!mouseA) {
-        console.log("No active mouse A press");
-        return;
-    }
-
-    mouseA = false;
-    console.log("Releasing A");
-
-    if (ispsp) {
-        EJS_emulator.gameManager.simulateInput(0, 0, 0);
-    } else {
-        EJS_emulator.gameManager.simulateInput(0, 8, 0);
-    }
-
 });
 
 async function ClearCookies() {
@@ -125,12 +119,14 @@ async function ClearCookies() {
 }
 
 async function StartLinux(ISO) {
-    return
     document.getElementById("gamediv").style.display = "none";
     document.getElementById("vm").style.display = "flex";
     document.getElementById("button").remove()
     HideSettings()
     document.getElementById("controls").style.display = "flex"
+    document.getElementById("fullscreenbutton").style.display = "flex"
+    document.getElementById("controlsiguess").style.display = "flex"
+    document.getElementById("divbutton").style.display = "flex"
 
     emulator = new V86({
         screen_container: document.getElementById("vm"),
@@ -290,19 +286,13 @@ function Notify(text, color = "#555") {
     }, 5000)
 }
 
-function downloadFromUrl() {
-    document.location.href = document.getElementById("OperatingSystemSelector").value
-}
-
 async function StartConsole(id, threads, consolename, file, buttonmapping) {
-    return
     document.getElementById("vm").style.display = "none";
     document.getElementById("divbutton").style.display = "none";
     document.getElementById("gamediv").style.display = "";
     document.getElementById("settingsliders").style.display = "none"
     document.getElementById("controls").style.display = "flex";
     document.getElementById("fullscreenbutton").style.display = "none"
-    document.querySelector("#OperatingSystemSelector").disabled = true;
     const startupBtn = document.getElementById("button");
     if (startupBtn) startupBtn.remove();
 
@@ -362,12 +352,10 @@ async function uploadFile() {
 }
 
 async function WhichToStart(){
-    return
     const file = await uploadFile()
     const state = document.getElementById("Emulator").value
     const threads = document.getElementById("Threads").value
     const id = document.getElementById("gameid").value
-    const canclick = document.getElementById("leftclick").value
 
     if (!file) {return}
 
@@ -401,8 +389,6 @@ async function WhichToStart(){
             11: "r"
     }
 
-    clickenabled = canclick
-
     if (state == "v86") {
         StartLinux(file)
         return
@@ -428,10 +414,4 @@ async function WhichToStart(){
         ispsp = true
         return
     }
-}
-
-function ShowErrorIFrame() {
-    document.getElementById("vm").style.display = "none"
-    document.getElementById("iframe").style.display = "flex"
-    document.getElementById("iframe").src = "https://onlineemulator.github.io/Errors/402/"
 }
